@@ -1,22 +1,27 @@
 #!/usr/bin/python3
-"""
-Module for 0x1F. Pascal's Triangle.
-Holberton School
-Specializations - Interview Preparation ― Algorithms
-"""
+"""Pascal Triangle Interview Challenge"""
 
 
 def pascal_triangle(n):
-    """
-    Returns the representation of the Pascal’s triangle of `n`
-    """
+    """returns a list of lists of numbers
+    representing the pascal triangle"""
     if n <= 0:
         return []
 
-    pascal = [[1 for x in range(y)] for y in range(1, n + 1)]
+    pascal_triangle = [0] * n
 
-    for x in range(2, n):
-        for y in range(1, len(pascal[x]) - 1):
-            pascal[x][y] = pascal[x - 1][y - 1] + pascal[x - 1][y]
+    for i in range(n):
+        # define a row and fill first and last idx with 1
+        new_row = [0] * (i+1)
+        new_row[0] = 1
+        new_row[len(new_row) - 1] = 1
 
-    return 
+        for j in range(1, i):
+            if j > 0 and j < len(new_row):
+                a = pascal_triangle[i - 1][j]
+                b = pascal_triangle[i - 1][j - 1]
+                new_row[j] = a + b
+
+        pascal_triangle[i] = new_row
+
+    return pascal_triangle
